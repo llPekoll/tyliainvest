@@ -23,12 +23,30 @@ const transform = async (input) => {
       city: input.city,
       countryCode: output[0].cca2
   };
+  // const certs = {
+  //   date: "2014-07-07T10:42:54.532Z",
+  //   certificate: "Economie, commerce et gestion et comptabilité",
+  //   type:
+  // }
+  const certs = input.certificates.map(
+    c => {
+      date: c.date;
+      certificate: c.certificate.title;
+      type: c.certificateType.title
+    }
+  )
+  console.log(certs)
+  const langs = {
+
+  }
   output = {
     id: input.id,
     firstname: input.firstname,
     lastname: input.lastname,
     address:address,
     dob: input.birthday,
+    certificates:certs
+    // languages:[]
   };
 
   return output;
