@@ -9,8 +9,28 @@ const levels = {
   'Langue maternelle': 5,
 };
 
+
+const getCountryCode = async(country) =>{
+  const url = `https://restcountries.com/v3.1/name/${country}`;
+  const res = await axios.get(url);
+  return res.data;
+}
 const transform = async (input) => {
-  // Your code here
+  let output = await getCountryCode(input.country);
+  const address = {
+      zipCode: input.zipCode,
+      street: input.street,
+      city: input.city,
+      countryCode: output[0].cca2
+  };
+  output = {
+    id: input.id,
+    firstname: input.firstname,
+    lastname: input.lastname,
+    address:address,
+    dob: input.birthday,
+  };
+
   return output;
 };
 
