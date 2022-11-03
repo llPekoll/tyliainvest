@@ -16,44 +16,44 @@ const getCountryCode = async(country) =>{
   return res.data;
 }
 const transform = async (input) => {
-  let output = await getCountryCode(input.country);
+  const countryCode = await getCountryCode(input.country);
   const address = {
       zipCode: input.zipCode,
       street: input.street,
       city: input.city,
-      countryCode: output[0].cca2
+      countryCode: countryCode[0].cca2
   };
   const experiences = input.experiences.map(
-    c => {
+    xp => {
       return {
-        companyName: c.companyName,
-        startDate: c.startDate,
-        endDate: c.endDate,
-        jobId: c.job.id
+        companyName: xp.companyName,
+        startDate: xp.startDate,
+        endDate: xp.endDate,
+        jobId: xp.job.id
       }
     }
   )
   const certificates = input.certificates.map(
-    c => {
+    cert => {
       return {
-        date: c.date,
-        certificate: c.certificate.title,
-        type: c.certificateType.title
+        date: cert.date,
+        certificate: cert.certificate.title,
+        type: cert.certificateType.title
       }
     }
   )
   const languages = input.languages.map(
-    c => {
+    lang => {
       return {
-        languageId: c.id,
-        title: c.title,
-        levelTitle: c.level,
-        level:levels[c.level]
+        languageId: lang.id,
+        title: lang.title,
+        levelTitle: lang.level,
+        level:levels[lang.level]
       }
     }
   )
 
-  output = {
+  return {
     id: input.id,
     firstname: input.firstname,
     lastname: input.lastname,
@@ -63,8 +63,6 @@ const transform = async (input) => {
     certificates,
     languages
   };
-
-  return output;
 };
 
 (async () => {
